@@ -156,7 +156,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         #===================== QtWidgets.QTableWidget() ကို အသုံးပြုပြီ Table တည်ဆောက် ========================
         self.tableWidget = QtWidgets.QTableWidget()
-        self.setCentralWidget(self.tableWidget) # table ကို mainwindow ထဲထည့်
+        self.setCentralWidget(self.tableWidget) # table ကို mainwindow ထဲထည့် SDI
         self.tableWidget.setAlternatingRowColors(True)
         self.tableWidget.setColumnCount(6) # Table အတွက် Column အရေအတွက်သတ်မှတ်
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)

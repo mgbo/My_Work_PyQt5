@@ -1,1 +1,5 @@
+# subfolder
 icon/
+
+# database
+*.db
