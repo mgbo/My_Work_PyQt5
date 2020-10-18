@@ -3,3 +3,4 @@ icon/
 
 # database
 *.db
+*.csv
