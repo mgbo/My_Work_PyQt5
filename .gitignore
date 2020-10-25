@@ -4,3 +4,6 @@ icon/
 # database
 *.db
 *.csv
+
+# specified file
+SRM-In-Pyqt5.py
