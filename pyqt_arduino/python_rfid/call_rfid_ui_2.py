@@ -9,7 +9,7 @@ import random
 
 
 com = '/dev/cu.usbmodem14101'
-ser = serial.Serial(com, timeout=10)
+ser = serial.Serial(com)
 
 
 
@@ -29,14 +29,11 @@ class My_Window(QtWidgets.QWidget):
 		self.timer.start()
 
 	def get_card_id(self):
-		if ser.is_open == True:
-			c = ser.readline().decode()
-			c = c.rstrip()
-			print (c)
-			if c.isdigit():
-				self.data = int(c)
-			else:
-				return
+		c = ser.readline().decode()
+		c = c.rstrip()
+		print (c)
+		if c.isdigit():
+			self.data = c
 
 		self.ui.label_2.setText(str(self.data))
 		# QtWidgets.QApplication.processEvents()

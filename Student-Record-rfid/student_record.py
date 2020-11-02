@@ -35,8 +35,6 @@ img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'icon/'))
 #                 return
 
 
-
-
 class InsertDialog(QtWidgets.QDialog):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -51,18 +49,23 @@ class InsertDialog(QtWidgets.QDialog):
             readyRead=self.receive
         )
 
-
         self.setWindowTitle("Add Student")
-        self.setFixedWidth(500)
-        self.setFixedHeight(500)
+        # self.setFixedWidth(350)
+        # self.setFixedHeight(350)
 
-
-        self.Qbtn = QtWidgets.QPushButton()
+        #===================== image browser ======================
         self.Qbtn_img = QtWidgets.QPushButton()
-        self.Qbtn.setText("Register")
-        self.Qbtn_img.setText("Choose image")
+        img_icon = QtGui.QPixmap(img_path +  "/img_browse.png")
+        self.Qbtn_img.setIcon(QtGui.QIcon(img_icon))
+        self.Qbtn_img.setIconSize(QtCore.QSize(300,130))
+        # self.Qbtn_img.setGeometry(QtCore.QRect(1030, 500, 161, 61))
 
-        layout = QtWidgets.QVBoxLayout() # ============ add Vertical container ==============
+        #=================== Register Button ======================
+        self.Qbtn = QtWidgets.QPushButton()
+        self.Qbtn.setText("Register")
+
+        # ============ add Vertical container ==============
+        layout = QtWidgets.QVBoxLayout()
 
         # =========== add line edit(name) in to vertical container ===============
         self.nameinput = QtWidgets.QLineEdit() 
@@ -90,10 +93,10 @@ class InsertDialog(QtWidgets.QDialog):
         layout.addWidget(self.addressinput)
 
 
-        self.lab_img = QtWidgets.QLabel("PUT IMAGE")
-        self.lab_img.setAlignment(QtCore.Qt.AlignCenter)
-        self.lab_img.setStyleSheet("border: 3px solid green;")
-        layout.addWidget(self.lab_img)
+        # self.lab_img = QtWidgets.QLabel("PUT IMAGE")
+        # self.lab_img.setAlignment(QtCore.Qt.AlignCenter)
+        # self.lab_img.setStyleSheet("border: 3px solid green;")
+        # layout.addWidget(self.lab_img)
 
         # self.rfid_card_id = QtWidgets.QLabel("Put RFID Card to Sensor")
         # self.rfid_card_id.setAlignment(QtCore.Qt.AlignCenter)
@@ -119,11 +122,13 @@ class InsertDialog(QtWidgets.QDialog):
 
     def add_img(self):
         fname = QtWidgets.QFileDialog.getOpenFileName(self, caption='Open file', directory=file_path, filter="All (*);;Image files (*.jpg *.gif *.ico)") 
-        print (fname)
+        # print (fname)
         if fname[0] !='':
-            self.lab_img.setScaledContents(True)
+            # img_icon = QtGui.QPixmap(img_path +  "/Click to browse.png")
+            # self.Qbtn_img.setIcon(QtGui.QIcon(img_icon))
+            # self.Qbtn_img.setScaledContents(True)
             pixmap = QtGui.QPixmap(fname[0])
-            self.lab_img.setPixmap(pixmap)
+            self.Qbtn_img.setIcon(QtGui.QIcon(pixmap))
 
             with open(fname[0], 'rb') as f:
                 self.img_b = f.read()
@@ -229,14 +234,14 @@ class SearchDialog(QtWidgets.QDialog):
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-        # self.setWindowIcon(QtGui.QIcon('icon/g2/png'))
+        self.setWindowIcon(QtGui.QIcon(img_path + 'iogo-1.ico'))
 
         #================== FOR ARDUINO DATA ========================
-        # self.serial = QtSerialPort.QSerialPort(
-        #     '/dev/cu.usbmodem14101',
-        #     baudRate=QtSerialPort.QSerialPort.Baud9600,
-        #     readyRead=self.receive
-        # )
+        self.serial = QtSerialPort.QSerialPort(
+            '/dev/cu.usbmodem14101',
+            baudRate=QtSerialPort.QSerialPort.Baud9600,
+            readyRead=self.receive
+        )
 
         #======================================== FOR DATABASE ==========================================
         self.conn = sqlite3.connect("Stu-Database.db")
@@ -336,17 +341,16 @@ class MainWindow(QtWidgets.QMainWindow):
         return imageLabel
 
 
-    # @QtCore.pyqtSlot()
-    # def receive(self):
-    #     while self.serial.canReadLine():
-    #         text = self.serial.readLine().data().decode()
-    #         text = text.rstrip('\r\n')
-    #         # print ("Audrino dat : ",text)
-    #         card_id = int(text)
-    #         print (f"Card_id is : {card_id}")
-    #         # self.output_te.append(text)
-    #         # self.output_te.setText(str(text))
-
+    @QtCore.pyqtSlot()
+    def receive(self):
+        while self.serial.canReadLine():
+            text = self.serial.readLine().data().decode()
+            text = text.rstrip('\r\n')
+            # print ("Audrino dat : ",text)
+            card_id = int(text)
+            print (f"Card_id is : {card_id}")
+            # self.output_te.append(text)
+            # self.output_te.setText(str(text))
 
 
     def search(self):

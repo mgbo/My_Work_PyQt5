@@ -8,7 +8,7 @@ class Widget(QtWidgets.QWidget):
         # self.message_le = QtWidgets.QLineEdit()
         # self.send_btn = QtWidgets.QPushButton(text="Send",clicked=self.send)
         self.output_te = QtWidgets.QTextEdit(readOnly=True)
-        # self.button = QtWidgets.QPushButton(text="Connect", checkable=True,toggled=self.on_toggled)
+        self.button = QtWidgets.QPushButton(text="Connect", checkable=True,toggled=self.on_toggled)
         
         lay = QtWidgets.QVBoxLayout(self)
         # hlay = QtWidgets.QHBoxLayout()
@@ -18,7 +18,7 @@ class Widget(QtWidgets.QWidget):
         # lay.addLayout(hlay)
 
         lay.addWidget(self.output_te)
-        # lay.addWidget(self.button)
+        lay.addWidget(self.button)
 
 
         #================= For Serial Data From Arduino ======================
@@ -41,15 +41,15 @@ class Widget(QtWidgets.QWidget):
     # def send(self):
     #     self.serial.write(self.message_le.text().encode())
 
-    # @QtCore.pyqtSlot(bool)
-    # def on_toggled(self, checked):
-    #     self.button.setText("Disconnect" if checked else "Connect")
-    #     if checked:
-    #         if not self.serial.isOpen():
-    #             if not self.serial.open(QtCore.QIODevice.ReadWrite):
-    #                 self.button.setChecked(False)
-    #     else:
-    #         self.serial.close()
+    @QtCore.pyqtSlot(bool)
+    def on_toggled(self, checked):
+        self.button.setText("Disconnect" if checked else "Connect")
+        if checked:
+            if not self.serial.isOpen():
+                if not self.serial.open(QtCore.QIODevice.ReadWrite):
+                    self.button.setChecked(False)
+        else:
+            self.serial.close()
 
 
 

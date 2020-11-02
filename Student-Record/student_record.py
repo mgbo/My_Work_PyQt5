@@ -224,9 +224,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.tableWidget.verticalHeader().setStretchLastSection(False)
         self.tableWidget.setHorizontalHeaderLabels(("စဉ်", "ဓာတ်ပုံ", "အမည်", "အထူးပြုဘာသာရပ်", "တယ်လီဖုန်းနံပါတ်","ဆက်သွယ်ရန်လိပ်စာ"))
 
+        self.tableWidget.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents) # # ခေါင်းစဉ် နှင့် အကျယ် တစ်ထက်တည်ကျအောင်လုပ် (အကြီး မှ အသေး )
+        self.tableWidget.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch) # ခေါင်းစဉ် နှင့် အကျယ် တစ်ထက်တည်ကျအောင်လုပ် (အသေး မှ အကြီး)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.Stretch) # ခေါင်းစဉ် နှင့် အကျယ် တစ်ထက်တည်ကျအောင်လုပ် (အသေး မှ အကြီး)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(5, QtWidgets.QHeaderView.Stretch) # ခေါင်းစဉ် နှင့် အကျယ် တစ်ထက်တည်ကျအောင်လုပ် (အသေး မှ အကြီး)
+        self.tableWidget.setFont(QtGui.QFont('Pyidaungsu', 14)) # table အတွက် font သတ်မှတ်
+
 
         #=================== Table အပေါ်မှာ toolbar ထည့်ရန်အတွက် ============
         toolbar = QtWidgets.QToolBar()
+        toolbar.setFont(QtGui.QFont('Pyidaungsu', 14))
         toolbar.setMovable(False)
         self.addToolBar(toolbar)
 
@@ -246,7 +253,7 @@ class MainWindow(QtWidgets.QMainWindow):
         search_img = QtGui.QIcon( img_path + "/chart-search-icon.png")
         btn_ac_search = QtWidgets.QAction(search_img, "ရှာဖွေရန်", self)  #search icon
         btn_ac_search.triggered.connect(self.search)
-        btn_ac_search.setStatusTip("Search User")
+        btn_ac_search.setStatusTip("Search User") # table အောက်က statusbar မှာ သတ်မှတ်ထားသောစာတမ်း ပေါ် ရန် အတွက်
         toolbar.addAction(btn_ac_search)
         
 
@@ -255,6 +262,7 @@ class MainWindow(QtWidgets.QMainWindow):
         about_btn.triggered.connect(self.about)
         about_btn.setStatusTip("အကြောင်း")
         toolbar.addAction(about_btn)
+        
 
         btn_ac_delete = QtWidgets.QAction(QtGui.QIcon(img_path + "/Recycle-Bin-icon.png"), "Delete", self)
         btn_ac_delete.triggered.connect(self.delete)
@@ -265,6 +273,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # ======================== Table အောက်ခြေ က toolbar ================
         statusbar = QtWidgets.QStatusBar()
+        statusbar.setFont(QtGui.QFont('Pyidaungsu', 14))
         self.setStatusBar(statusbar)
 
     def insert(self):
