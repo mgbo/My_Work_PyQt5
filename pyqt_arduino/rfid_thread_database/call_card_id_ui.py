@@ -9,6 +9,7 @@ from PyQt5.QtCore import QThread
 
 from card_id_ui import *
 
+import sqlite3
 import serial
 from threading import Event
 
@@ -115,6 +116,46 @@ class MyWindow(QtWidgets.QWidget):
 
     def update_card(self, c_data):
         self.ui.labelCardid.setText(str(c_data))
+        c_id = str(c_data)+' '
+
+        # sqlStatement = f"SELECT name, card_id FROM students WHERE name='ko chit'"
+        sqlStatement = f"SELECT name, photo FROM students WHERE card_id='{c_id}'"
+        print (sqlStatement)
+
+        try:
+            conn = sqlite3.connect("Stu-Database.db")
+            cur = conn.cursor()
+            result=cur.execute(sqlStatement)
+            row = result.fetchone()
+            # print("row : ", row)
+
+            if row==None:
+                self.ui.label_user_name.setText("Sorry, You don't registered")
+                pixmap = QtGui.QPixmap(icon_path + '/photo-not-available.jpg')
+                self.ui.label_user_img.setPixmap(pixmap)
+            else:
+                self.ui.label_user_name.setText(row[0])
+
+                pixmap = QtGui.QPixmap()
+                pixmap.loadFromData(row[1])
+
+                # img = self.getImageLabel(row[1])
+                self.ui.label_user_img.setPixmap(pixmap)
+
+        except Error as e:
+            self.ui.label_user_name.setText("Error in acessing row")
+
+        finally:
+            conn.close()
+
+        def getImageLabel(self, image):
+            imageLabel = QtWidgets.QLabel()
+            imageLabel.setText("")
+            imageLabel.setScaledContents(True)
+            pixmap = QtGui.QPixmap()
+            pixmap.loadFromData(image)
+            imageLabel.setPixmap(pixmap)
+            return imageLabel
 
 
     def updateInfoArduino(self, condi):

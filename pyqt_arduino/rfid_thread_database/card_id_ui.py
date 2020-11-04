@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 240)
+        Dialog.resize(659, 331)
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(30, 90, 71, 31))
         self.label.setStyleSheet("font: 18pt \".SF NS Text\";")
@@ -36,6 +36,17 @@ class Ui_Dialog(object):
         self.label_icon.setText("")
         self.label_icon.setScaledContents(True)
         self.label_icon.setObjectName("label_icon")
+        self.label_user_img = QtWidgets.QLabel(Dialog)
+        self.label_user_img.setGeometry(QtCore.QRect(420, 30, 201, 181))
+        self.label_user_img.setScaledContents(True)
+        self.label_user_img.setObjectName("label_user_img")
+        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2.setGeometry(QtCore.QRect(400, 260, 51, 31))
+        self.label_2.setObjectName("label_2")
+        self.label_user_name = QtWidgets.QLabel(Dialog)
+        self.label_user_name.setGeometry(QtCore.QRect(490, 260, 151, 31))
+        self.label_user_name.setText("")
+        self.label_user_name.setObjectName("label_user_name")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -46,3 +57,5 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "card id :"))
         self.labeTime.setText(_translate("Dialog", "Time"))
         self.label_text.setText(_translate("Dialog", "Arudino is open"))
+        self.label_user_img.setText(_translate("Dialog", "TextLabel"))
+        self.label_2.setText(_translate("Dialog", "Name"))
