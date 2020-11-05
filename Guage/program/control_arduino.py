@@ -58,7 +58,6 @@ class ControlArduino(QThread):
             self.serArduino.write(b'p')
             time.sleep(0.01)
             wert = self.serArduino.read(5)
-            # print ("read 5 : ", wert)
 
             try:
                 wert = wert.split()

@@ -9,12 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QIcon
-import os
-
-# img_p = os.getcwd()
-img_p = os.path.abspath(os.path.join(os.path.dirname('__file__'), ''))
-print (img_p)
 
 
 class Ui_Dialog(object):
@@ -25,9 +19,9 @@ class Ui_Dialog(object):
         self.gridLayout.setObjectName("gridLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.listView = QtWidgets.QListView(Dialog)
-        self.listView.setObjectName("listView")
-        self.horizontalLayout.addWidget(self.listView)
+        self.listWidget = QtWidgets.QListWidget(Dialog)
+        self.listWidget.setObjectName("listWidget")
+        self.horizontalLayout.addWidget(self.listWidget)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.pushButton_add = QtWidgets.QPushButton(Dialog)
@@ -50,56 +44,32 @@ class Ui_Dialog(object):
         self.verticalLayout.addWidget(self.pushButton_sort)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
-        self.pushButton_close = QtWidgets.QPushButton(Dialog)
-        self.pushButton_close.setObjectName("pushButton_close")
-        self.verticalLayout.addWidget(self.pushButton_close)
+        self.btnClose = QtWidgets.QPushButton(Dialog)
+        self.btnClose.setObjectName("btnClose")
+        self.verticalLayout.addWidget(self.btnClose)
         self.horizontalLayout.addLayout(self.verticalLayout)
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-        self.Employee()
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Employee"))
-        Dialog.setWindowIcon(QIcon(img_p + '/worker-icon.png'))
-
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.pushButton_add.setText(_translate("Dialog", "Add"))
         self.pushButton_edit.setText(_translate("Dialog", "Edit"))
         self.pushButton_remove.setText(_translate("Dialog", "Remove"))
         self.pushButton_up.setText(_translate("Dialog", "Up"))
         self.pushButton_down.setText(_translate("Dialog", "Down"))
         self.pushButton_sort.setText(_translate("Dialog", "Sort"))
-        self.pushButton_close.setText(_translate("Dialog", "Close"))
-
-    def Employee(self):
-        self.employee = ['mg chit', 'mg kyaw', 'mg mg', 'ko ko']
-        self.listView.addItems(self.employee)
-        # self.listView.setCurrentRow(0)
-
-
-
+        self.btnClose.setText(_translate("Dialog", "Close"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    my_w = QtWidgets.QDialog()
+    Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(my_w)
-    my_w.show()
+    ui.setupUi(Dialog)
+    Dialog.show()
     sys.exit(app.exec_())
-
-
-
-
-
-
-
-
-
-
-
-
-
