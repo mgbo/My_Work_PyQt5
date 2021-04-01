@@ -7,3 +7,5 @@ icon/
 
 # specified file
 SRM-In-Pyqt5.py
+
+__pycache__/
