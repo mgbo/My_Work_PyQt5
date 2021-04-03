@@ -14,7 +14,7 @@ class DlgMain(QDialog):
 		self.ui.prg.setStyle(QStyleFactory.create("windows"))
 		self.ui.prg.setTextVisible(True)
 		self.ui.btnStart.clicked.connect(self.evt_btnStart_clicked)
-
+		
 
 		self.ui.dial.valueChanged.connect(self.ui.lcd.display)
 
